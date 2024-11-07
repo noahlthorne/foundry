@@ -1,0 +1,50 @@
+# Node.js
+node_modules/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs
+logs
+*.log
+logs/*.log
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# OS and editor specific
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Angular specific
+angular-app/dist/
+angular-app/.angular/
+angular-app/.env
+angular-app/.env.*
+
+# Next.js specific
+nextjs-app/.next/
+nextjs-app/out/
+nextjs-app/.env
+nextjs-app/.env.*
+
+# Express backend specific
+express-backend/.env
+express-backend/build/
+express-backend/dist/
+
+# General environment files
+.env
+.env.*
