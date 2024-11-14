@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import helloRoute from "./routes/helloRoute";
+import exampleRoute from "./routes/exampleRoute";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 // Register routes
-app.use("/api", helloRoute);
+app.use("/api", exampleRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
