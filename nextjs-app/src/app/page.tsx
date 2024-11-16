@@ -1,10 +1,13 @@
 import React from 'react';
+import ExampleMessage from './components/ExampleMessage';
+import Header from './components/Header';
 
 export default function Home() {
-  return (
-    <section className='py-24'>
+   return (
+    <section className="py-24">
       <div className="container">
-        <h1 className="text-3x1 font-bold">UOWEME</h1>
+        <Header />
+        <ExampleMessage />
       </div>
     </section>
   );
