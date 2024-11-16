@@ -1,13 +1,55 @@
+version: "3.9"
+
 services:
   express-backend:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000" 
+      - "3000:3000"
     environment:
       - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:password@postgres-db:5432/uoweme
     volumes:
-      - .:/app # Mount the current directory to /app inside the container
-      - /app/node_modules # Prevent conflicts with host node_modules
-    command: npm run dev # Use the nodemon dev script
+      - .:/app
+    depends_on:
+      - postgres-db
+    command: sh ./wait-for-it.sh postgres-db npm run dev
+
+  postgres-db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: uoweme
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  prisma-migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@postgres-db:5432/uoweme
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres-db
+    entrypoint: ["npx", "prisma", "migrate", "dev", "--name", "init"]
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    depends_on:
+      - postgres-db
+
+volumes:
+  postgres-data:
